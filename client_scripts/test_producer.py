@@ -8,13 +8,13 @@ topic = "test/topic"
 client_id = "python-mqtt-client-test"
 
 # Define callback functions
-def on_connect(client, userdata, flags, rc):
+def on_connect(client, userdata, flags, rc, *args):
   if rc == 0:
     print("Connected to MQTT Broker!")
   else:
     print("Failed to connect, return code: %d %d",12, rc)
 
-client = mqtt.Client(callback_api_version=mqtt.CallbackAPIVersion.VERSION1, client_id=client_id)
+client = mqtt.Client(callback_api_version=mqtt.CallbackAPIVersion.VERSION2, client_id=client_id)
 client.on_connect = on_connect
 
 client.connect(broker_address, port)

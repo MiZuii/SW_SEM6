@@ -1,0 +1,15 @@
+version: '2.25'
+services:
+  
+  # go mqtt server
+  server:
+    build: server_app
+    depends_on:
+      - broker
+
+  # go local broker
+  broker:
+    image: eclipse-mosquitto:latest
+    ports:
+      - "1883:1883"
+      - "9001:9001"

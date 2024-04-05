@@ -1,6 +1,9 @@
 **Dockerfile
 **.venv
 **__pycache__
+**build
+**.so*
+**.o
+**.out
 
-paho.mqtt.cpp
-.gitignore
+**.md
