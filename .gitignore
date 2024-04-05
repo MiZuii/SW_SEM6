@@ -1,0 +1,10 @@
+**.venv
+**build
+**.so*
+**.o
+**.out
+**__pycache__
+
+#specific
+paho.mqtt.cpp
+leela-zero

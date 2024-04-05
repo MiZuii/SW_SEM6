@@ -1,0 +1,6 @@
+**Dockerfile
+**.venv
+**__pycache__
+
+paho.mqtt.cpp
+.gitignore
