@@ -1,8 +1,8 @@
 import paho.mqtt.client as mqtt
 
-broker_address = "localhost"
+broker_address = "192.168.0.66"
 port = 1883
-topic = "test/topic"
+topic = "test"
 producer_id = "python-mqtt-client-test"
 receiver_id = "python-mqtt-receiver-test"
 

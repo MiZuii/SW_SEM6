@@ -1,10 +1,11 @@
 import paho.mqtt.client as mqtt
 import time
+import asyncio
 
 # Define connection parameters
-broker_address = "localhost"
+broker_address = "192.168.0.66"
 port = 1883
-topic = "test/topic"
+topic = "test"
 client_id = "python-mqtt-client-test"
 
 # Define callback functions
