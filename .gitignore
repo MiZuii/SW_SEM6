@@ -5,7 +5,9 @@
 **.o
 **.out
 **__pycache__
+**.env
 
 #specific
 paho.mqtt.cpp
 leela-zero
+KataGo
