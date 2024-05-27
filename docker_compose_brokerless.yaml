@@ -1,0 +1,6 @@
+version: '2.25'
+services:
+  
+  # go mqtt server
+  server:
+    build: server_app

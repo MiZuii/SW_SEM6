@@ -38,15 +38,21 @@ def generate_access_token(username, password, client_id, grant_type):
 
     url = "https://online-go.com/oauth2/token/"
     data = {
-        "client_id": client_id,
         "grant_type": grant_type,
         "username": username,
-        "password": password
+        "password": password,
+        "client_id": client_id
     }
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     timeout = 20
 
     response = requests.post(url, data=data, headers=headers, timeout=timeout)
+    print(response.request.url)
+    print(response.request.headers)
+    print(response.request.body)
+    print(response.status_code)
+    print(response.text)
+    # response = requests.post(url, json=data, timeout=timeout)
     response.raise_for_status()  # Raise an exception for non-2xx status codes
 
     access_token = response.json()["access_token"]
