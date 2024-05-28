@@ -3,7 +3,8 @@ import time
 import asyncio
 
 # Define connection parameters
-broker_address = "192.168.0.66"
+# broker_address = "192.168.0.66"
+broker_address = "localhost"
 port = 1883
 topic = "test"
 client_id = "python-mqtt-client-test"

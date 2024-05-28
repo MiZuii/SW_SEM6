@@ -14,22 +14,17 @@ def on_connect(client: mqtt.Client, userdata, flags, rc, *args, **kwargs):
         
         # ------------------------------- REGISTRATION ------------------------------- #
         
-        client.subscribe(client_topic_prefix + kwargs[id])
-        client.publish(registration_topic, kwargs[id])
+        client.subscribe(client_topic_prefix + kwargs["id"])
+        client.publish(registration_topic, kwargs["id"])
 
     else:
         print("Failed to connect, code " + str(rc))
         exit(1)
 
 
-def on_message(client: mqtt.Client, userdata, msg):
-    if msg == "ACK":
-        return
-    elif msg == "NACK":
-        print("Connection not accepted")
-        exit(1)
-    else:
-        print("Unindentified message received: " + msg)
+def on_message(client: mqtt.Client, userdata, msg: mqtt.MQTTMessage):
+    if msg.payload.decode() == "QUIT":
+        end(client)
 
 
 def init(id: str) -> mqtt.Client:
