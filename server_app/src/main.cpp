@@ -33,36 +33,50 @@ int main(int argc, char *argv[])
 
     try
     {
+        cli.start_consuming();
+
         auto tok = cli.connect(connOpts);
         auto rsp = tok->get_connect_response();
-
         std::cout << "Connected to " << rsp.get_server_uri() << std::endl;
 
         cli.subscribe(REGISTRATION_TOPIC, 2)->wait();
-        cli.start_consuming();
 
         std::cout << "Listening" << std::endl;
 
         while(true)
         {
             auto msg = cli.consume_message();
-            
-            if( ids.find(msg->to_string()) == ids.end() )
-            {
-                std::cerr << "ID already exists";
-            }
-            else
-            {
-                // run new python thread and registered id
-                ids.insert(msg->to_string());
-                std::stringstream cmd;
-                cmd << python_interpreter << " " << python_session_script << " " << msg->to_string();
+            auto msg_str = msg->to_string();
 
-                std::thread t{[](std::string cmd) { std::system(cmd.c_str()); }, cmd.str()};
-                t.detach();
+            if( ids.find(msg_str) != ids.end() )
+            {
+                if( msg_str.substr(0, 6) == "quit: ")
+                {
+                    // deregister client
+                    auto cli_id = msg_str.substr(7);
+                    if( ids.find(cli_id) != ids.end() )
+                    {
+                        ids.erase(cli_id);
+                        continue;
+                    }
 
-                std::cerr << "Registered " + msg->to_string() + "\n";
+                    std::cerr << "Incorrent quit ID\n";
+                    continue;
+                }
+                
+                std::cerr << "ID already exists\n";
+                continue;
             }
+
+            // run new python thread and registered id
+            ids.insert(msg_str);
+            std::stringstream cmd;
+            cmd << python_interpreter << " " << python_session_script << " " << msg_str;
+
+            std::thread t{[](std::string cmd) { std::system(cmd.c_str()); }, cmd.str()};
+            t.detach();
+
+            std::cerr << "Registered " + msg_str + "\n";
         }
     }
     catch (const mqtt::exception& exc) {

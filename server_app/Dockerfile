@@ -28,4 +28,6 @@ COPY . .
 RUN cmake -Bbuild
 RUN cmake --build build/
 
-CMD ["/app/build/main", "/usr/bin/python3", "/app/session.py"]
+RUN python3 -m pip install paho-mqtt
+
+CMD ["/app/build/main", "/usr/local/bin/python3", "/app/session.py"]
