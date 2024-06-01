@@ -6,6 +6,8 @@
 #include <unordered_set>
 #include <sstream>
 
+#include <yaml-cpp/yaml.h>
+
 #include "main.hpp"
 
 
@@ -19,12 +21,19 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
+    /* config setup */
+    auto config = YAML::LoadFile("/app/config.yaml");
+
+    auto address = config["server"]["broker_address"].as<std::string>();
+    auto server_id = config["server"]["name"].as<std::string>();
+    auto main_topic = config["common"]["main_topic"].as<std::string>();
+
     std::unordered_set<std::string> ids;
     std::string python_interpreter(argv[1]);
     std::string python_session_script(argv[2]);
 
-    mqtt::async_client    cli(ADDRESS, SERVER_ID);
-    mqtt::topic           topic(cli, REGISTRATION_TOPIC);
+    mqtt::async_client    cli(address , server_id);
+    mqtt::topic           topic(cli, main_topic);
     mqtt::connect_options connOpts;
     
 	connOpts = mqtt::connect_options_builder()
@@ -39,7 +48,7 @@ int main(int argc, char *argv[])
         auto rsp = tok->get_connect_response();
         std::cout << "Connected to " << rsp.get_server_uri() << std::endl;
 
-        cli.subscribe(REGISTRATION_TOPIC, 2)->wait();
+        cli.subscribe(main_topic, 2)->wait();
 
         std::cout << "Listening" << std::endl;
 

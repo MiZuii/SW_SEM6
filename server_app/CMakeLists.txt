@@ -10,6 +10,7 @@ include_directories(hdr)
 
 # MAIN TARGET
 add_executable(main src/main.cpp)
+target_link_libraries(main -lyaml-cpp)
 
 # target_link_libraries(data_publish paho-mqtt3a paho-mqttpp3)
 target_link_libraries(main PahoMqttCpp::paho-mqttpp3)

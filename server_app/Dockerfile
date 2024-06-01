@@ -17,6 +17,13 @@ WORKDIR /app/paho.mqtt.cpp
 RUN cmake -Bbuild -H. -DPAHO_WITH_MQTT_C=ON -DPAHO_WITH_SSL=OFF
 RUN cmake --build build/ --target install
 
+WORKDIR /app
+RUN git clone --branch 0.8.0 https://github.com/jbeder/yaml-cpp.git
+RUN mkdir /app/yaml-cpp/build
+WORKDIR /app/yaml-cpp/build
+RUN cmake -DYAML_BUILD_SHARED_LIBS=ON ..
+RUN make -j4 install
+
 # MY STAGE
 FROM python:3.10-alpine
 WORKDIR /app
@@ -28,6 +35,6 @@ COPY . .
 RUN cmake -Bbuild
 RUN cmake --build build/
 
-RUN python3 -m pip install paho-mqtt
+RUN python3 -m pip install paho-mqtt pyyaml
 
 CMD ["/app/build/main", "/usr/local/bin/python3", "/app/session.py"]
