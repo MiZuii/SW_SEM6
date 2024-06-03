@@ -1,5 +1,6 @@
 import socketio
 import time
+import sys
 
 def generate_ogs_socket_handler():
     url = "https://online-go.com"

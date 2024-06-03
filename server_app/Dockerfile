@@ -35,6 +35,6 @@ COPY . .
 RUN cmake -Bbuild
 RUN cmake --build build/
 
-RUN python3 -m pip install paho-mqtt pyyaml
+RUN python3 -m pip install paho-mqtt pyyaml python-dotenv requests python-socketio websocket-client
 
 CMD ["/app/build/main", "/usr/local/bin/python3", "/app/session.py"]

@@ -20,7 +20,6 @@ def create_demo_board(access_token, board_name, black_name, black_rank, white_na
     response.raise_for_status()  # Raise an exception for non-2xx status codes
 
     demo_board_id = response.json()["id"]
-    print(f"Demo board created: {demo_board_id}")
     return demo_board_id, response
 
 
@@ -47,12 +46,6 @@ def generate_access_token(username, password, client_id, grant_type):
     timeout = 20
 
     response = requests.post(url, data=data, headers=headers, timeout=timeout)
-    print(response.request.url)
-    print(response.request.headers)
-    print(response.request.body)
-    print(response.status_code)
-    print(response.text)
-    # response = requests.post(url, json=data, timeout=timeout)
     response.raise_for_status()  # Raise an exception for non-2xx status codes
 
     access_token = response.json()["access_token"]

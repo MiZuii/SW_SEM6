@@ -45,8 +45,11 @@ def init(id: str) -> mqtt.Client:
     return client
 
 
-def publish(client: mqtt.Client, id:str, message: str):
-    client.publish(config['common']['client_prefix'] + id, message)
+def data_publish(client: mqtt.Client, id:str, message: str):
+    client.publish(config['common']['client_prefix'] + id, config['common']['message_types']['data'] + message)
+
+def config_publish(client: mqtt.Client, id:str, message: str):
+    client.publish(config['common']['client_prefix'] + id, config['common']['message_types']['config'] + message)
 
 def end(client: mqtt.Client):
     client.loop_stop()
