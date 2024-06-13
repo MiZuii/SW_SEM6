@@ -1,0 +1,11 @@
+path: ../client_scripts/datasets
+train: ./train
+val: ./val
+test: ./test
+
+
+names:
+  0: go_pieces
+  1: blackStone
+  2: grid
+  3: whiteStone

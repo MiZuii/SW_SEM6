@@ -1,1 +1,9 @@
-paho-mqtt==2.0.0
+opencv_python==4.10.0.82
+paho_mqtt==2.1.0
+Pillow==8.4.0
+Pillow==10.3.0
+torch==2.1.1+cu121
+torch==2.1.1
+torchvision==0.16.1+cu121
+torchvision==0.16.1
+ultralytics==8.2.31
