@@ -35,7 +35,7 @@ def results_to_coordinates(results):
             x_coord = coords[0]
             y_coord = coords[1]
             if x_coord >= g_xmin and x_coord <= g_xmax and y_coord >= g_ymin and y_coord <= g_ymax:
-                int_coords = (round((x_coord - g_xmin) / cell_width), round((y_coord - g_ymin) / cell_height))
+                int_coords = (round((x_coord - g_xmin) / cell_width) - 1, round((y_coord - g_ymin) / cell_height) - 1)
                 if int_coords not in black_stones and int_coords not in white_stones:
                     if stone == 1.:
                         black_stones.append(int_coords)
