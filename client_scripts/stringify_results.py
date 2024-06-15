@@ -5,7 +5,10 @@ def results_to_coordinates(results):
     conf = results[0].boxes.conf.tolist()
     xywh = results[0].boxes.xywh.tolist()
 
-    g_idx = cls.index(2.)
+    try:
+        g_idx = cls.index(2.)
+    except Exception:
+        return [], []
     g_width = xywh[g_idx][2]
     g_height = xywh[g_idx][3]
     g_xmin = xywh[g_idx][0] - g_width / 2
